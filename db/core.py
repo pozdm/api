@@ -14,3 +14,4 @@ connect_args = {"ssl": ssl_context}
 
 engine = create_async_engine(config.SA_URL, connect_args=connect_args)
 DBSession: sessionmaker = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+
