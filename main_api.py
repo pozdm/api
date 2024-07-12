@@ -1,8 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
 
-from utils import statistics
-
 from utils import subscribers_stats
 
 app = FastAPI()
@@ -11,9 +9,9 @@ app = FastAPI()
 @app.get("/subscriptions_to_notifications/")
 async def get_period_subscriptions_stat(start_date, end_date):
     x, y = await subscribers_stats.subscriptions_to_notifications_period(start_date, end_date)
-    return {"message": "я тебя люблю",
-            "x": x,
+    return {"x": x,
             "y": y}
 
 
-uvicorn.run("statistics:app", reload=True)
+if __name__ == "__main__":
+    uvicorn.run("main_api:app", reload=True)

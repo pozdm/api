@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import asyncio
 
-from utils import subscribers_stats
+from utils import subscribers_stats, general_stats
 
 
 developers = []
@@ -12,17 +12,11 @@ last_week = (today - timedelta(days=8))
 
 
 async def main():
-    result = await subscribers_stats.subscriptions_to_notifications_period(last_day, today)
+    # result = await subscribers_stats.get_subscriptions_for_date(today)
+    result = await general_stats.views_for_date(today, developers)
     print(result)
 
 
-# asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-# asyncio.run(main())
-
-print(type(datetime.now()))
-
-
-
-
-
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+asyncio.run(main())
 

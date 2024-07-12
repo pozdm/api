@@ -6,6 +6,7 @@ from clickhouse_sqlalchemy import engines
 
 from utils import config
 
+
 __all__ = ("Base", "CheckModel")
 
 Base = declarative_base()
