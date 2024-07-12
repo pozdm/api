@@ -5,7 +5,7 @@ from db.session import open_session
 
 
 @open_session
-async def get_subscriptions_for_date(session, date: str) -> tuple[int] | None:
+async def get_subscriptions_for_date(session, date: str) -> dict[str: int] | None:
     query = select(
         Subscribers.tg, Subscribers.vk, Subscribers.total
     ).filter(
@@ -14,6 +14,14 @@ async def get_subscriptions_for_date(session, date: str) -> tuple[int] | None:
         Subscribers.time.desc()
     ).limit(1)
 
-    result1 = await session.execute(query)
+    result = await session.execute(query)
+    result = result.one_or_none()
 
-    return result1.one_or_none()
+    if not result:
+        return None
+
+    return {
+        "tg": result[0],
+        "vk": result[1],
+        "total": result[2]
+    }

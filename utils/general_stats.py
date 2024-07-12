@@ -5,7 +5,7 @@ from db.session import open_session
 
 
 @open_session
-async def total_unique_users_before_date(session, date: str, developers: list) -> int:
+async def get_total_unique_users_before_date(session, date: str, developers: list) -> int:
     query = select(
         func.count(VKModel.user_id.distinct())
     ).filter(
@@ -20,7 +20,7 @@ async def total_unique_users_before_date(session, date: str, developers: list) -
 
 
 @open_session
-async def unique_users_for_date(session, date: str, developers: list) -> int:
+async def get_unique_users_for_date(session, date: str, developers: list) -> int:
     query = select(
         func.count(VKModel.user_id.distinct())
     ).filter(
@@ -35,7 +35,7 @@ async def unique_users_for_date(session, date: str, developers: list) -> int:
 
 
 @open_session
-async def views_for_date(session, date: str, developers: list) -> int:
+async def get_views_for_date(session, date: str, developers: list) -> int:
     query = select(
         func.count(VKModel.user_id)
     ).filter(

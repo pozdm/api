@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 import asyncio
+from pprint import pprint
 
-from utils import subscribers_stats, general_stats
+from utils import subscribers_stats, general_stats, chats_stats, views_stats, utm_stats
 
 
 developers = []
@@ -12,9 +13,8 @@ last_week = (today - timedelta(days=8))
 
 
 async def main():
-    # result = await subscribers_stats.get_subscriptions_for_date(today)
-    result = await general_stats.views_for_date(today, developers)
-    print(result)
+    result = await views_stats.get_views_by_services("2024.07.10")
+    pprint(result)
 
 
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
