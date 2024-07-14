@@ -5,7 +5,7 @@ from db.session import open_session
 
 
 @open_session
-async def get_utm_stats(session, date: str, developers: list = []) -> any:
+async def get_utm_stats_for_date(session, date: str, developers: list = []) -> any:
     query = select(
         VKModel.utm_term, func.count(VKModel.user_id)
     ).filter(

@@ -1,13 +1,13 @@
 import json
 
-from sqlalchemy import inspect, Column, Integer, String, Float, Boolean, DateTime, BigInteger
+from sqlalchemy import inspect, Column, Integer, String, DateTime
 from sqlalchemy.orm import declarative_base
 from clickhouse_sqlalchemy import engines
 
 from utils import config
 
 
-__all__ = ("Base", "CheckModel")
+# __all__ = ("Base", "CheckModel")
 
 Base = declarative_base()
 
