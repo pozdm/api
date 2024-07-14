@@ -12,6 +12,7 @@ def _get_from_config_or_env(section: str, key: str) -> str:
     return result
 
 
+DEVELOPERS = list(map(int, _get_from_config_or_env("table", "developers").split(", ")))
 # TELEGRAM_TOKEN = _get_from_config_or_env("bot", "telegram_token")
 # ADMIN_TELEGRAM_ID = int(_get_from_config_or_env("bot", "admin_telegram_id"))
 # ADMIN_TELEGRAM_ID_2 = int(_get_from_config_or_env("app", "admin_telegram_id_2"))

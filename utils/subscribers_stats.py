@@ -21,7 +21,7 @@ async def get_subscriptions_for_date(session, date: str) -> dict[str: int] | Non
         return None
 
     return {
+        "total": result[2],
         "tg": result[0],
-        "vk": result[1],
-        "total": result[2]
+        "vk": result[1]
     }

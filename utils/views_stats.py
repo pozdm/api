@@ -2,6 +2,7 @@ from sqlalchemy import select, func
 
 from db.models import VKModel
 from db.session import open_session
+from utils.config import DEVELOPERS
 
 
 services_names = {
@@ -32,11 +33,11 @@ services_names = {
 
 
 @open_session
-async def get_views_by_services(session, date: str, developers: list = []) -> dict[str: int] | None:
+async def get_views_by_services(session, date: str) -> dict[str: int] | None:
     query = select(
         VKModel.event_name, func.count(VKModel.user_id)
     ).filter(
-        VKModel.user_id.not_in(developers)
+        VKModel.user_id.not_in(DEVELOPERS)
     ).filter(
         func.date_trunc('day', VKModel.event_timestamp) == date
     ).group_by(
@@ -52,10 +53,16 @@ async def get_views_by_services(session, date: str, developers: list = []) -> di
         if (name := service["event_name"]) in services_names:
             res[services_names[name]] = service["count"]
 
-    if not res:
+    res = res.items()
+    res = sorted(res, key=lambda x: x[1], reverse=True)
+
+    result = {}
+    result.update(res)
+
+    if not result:
         return None
 
-    return res
+    return result
 
 
 
