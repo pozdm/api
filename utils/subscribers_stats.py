@@ -17,8 +17,8 @@ async def get_subscriptions_for_date(session, date: str) -> dict[str: int] | Non
     result = await session.execute(query)
     result = result.one_or_none()
 
-    if not result:
-        return None
+    if result is None:
+        return result
 
     return {
         "total": result[2],

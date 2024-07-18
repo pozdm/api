@@ -30,21 +30,21 @@ async def get_chats_stats_for_date(session, date: str) -> tuple[str: int] | None
         func.date_trunc('day', ChatsUsersCountModel.time) == date
     )
 
-    result1 = await session.execute(query1)
-    result2 = await session.execute(query2)
-    result3 = await session.execute(query3)
+    chats = await session.execute(query1)
+    users = await session.execute(query2)
+    messages = await session.execute(query3)
 
-    result1 = result1.scalar()
-    result2 = result2.scalar()
-    result3 = result3.scalar()
+    chats = chats.scalar_one_or_none()
+    users = users.scalar_one_or_none()
+    messages = messages.scalar_one_or_none()
 
-    if not (result1 and result2 and result3):
+    if not (chats or users or messages):
         return None
 
     return {
-        "chats": result1,
-        "users": result2,
-        "messages": result3
+        "chats": chats,
+        "users": users,
+        "messages": messages
     }
 
 

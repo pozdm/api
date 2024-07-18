@@ -1,8 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-import asyncio
 
-from utils import subscribers_stats, views_stats
 from api.statistics_api import router as statistics_router
 
 app = FastAPI()

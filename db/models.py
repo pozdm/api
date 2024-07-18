@@ -7,7 +7,7 @@ from clickhouse_sqlalchemy import engines
 from utils import config
 
 
-# __all__ = ("Base", "CheckModel")
+__all__ = ("Base", "CheckModel")
 
 Base = declarative_base()
 
@@ -29,45 +29,6 @@ class MixinSerializers:
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
-class MyPetsOwnersModel(MixinSerializers, Base):
-    """VK miniapp: дневник питомца"""
-
-    __tablename__ = config.MYPETSOWNERS
-    __table_args__ = (
-        engines.TinyLog(),
-    )
-    measurement = Column(String, nullable=True)
-    time = Column(DateTime, nullable=True)
-    title = Column(String, primary_key=True, nullable=True)
-    total = Column(Integer, nullable=True)
-
-
-class DouModel(MixinSerializers, Base):
-    """Места в детских садах"""
-
-    __tablename__ = config.DOU
-    __table_args__ = (
-        engines.TinyLog(),
-    )
-    measurement = Column(String, nullable=True)
-    time = Column(DateTime, nullable=True)
-    district = Column(String, primary_key=True, nullable=True)
-    count = Column(Integer, nullable=True)
-
-
-class APIModel(MixinSerializers, Base):
-    """Спортплощадки"""
-
-    __tablename__ = config.API
-    __table_args__ = (
-        engines.MergeTree(),
-    )
-    title = Column(String, nullable=True)
-    time = Column(DateTime, nullable=True)
-    method = Column(String, primary_key=True, nullable=True)
-    query = Column(String, nullable=True)
-
-
 class VKModel(MixinSerializers, Base):
     """?"""
 
@@ -84,18 +45,6 @@ class VKModel(MixinSerializers, Base):
     utm_campaign = Column(String, nullable=True)
     utm_source = Column(String, nullable=True)
     utm_term = Column(String, nullable=True)
-
-
-class ChatsCountModel(MixinSerializers, Base):
-    """Статистика по количеству чатов"""
-
-    __tablename__ = config.CHATS_COUNT
-    __table_args__ = (
-        engines.TinyLog(),
-    )
-    measurement = Column(String, nullable=True)
-    time = Column(DateTime, primary_key=True, nullable=True)
-    count = Column(Integer, nullable=True)
 
 
 class ChatsUsersCountModel(MixinSerializers, Base):

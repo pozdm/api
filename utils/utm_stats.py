@@ -6,7 +6,7 @@ from utils.config import DEVELOPERS
 
 
 @open_session
-async def get_utm_stats_for_date(session, date: str) -> any:
+async def get_utm_stats_for_date(session, date: str) -> dict | None:
     query = select(
         VKModel.utm_term, func.count(VKModel.user_id)
     ).filter(
@@ -21,12 +21,9 @@ async def get_utm_stats_for_date(session, date: str) -> any:
 
     result = await session.execute(query)
     result = result.all()
-    result = sorted(result, key=lambda x: x[1], reverse=True)
+    result_dict = dict(result)
 
-    res = {}
-    res.update(result)
-
-    if not res:
+    if not result_dict:
         return None
 
-    return res
+    return result_dict

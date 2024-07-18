@@ -3,7 +3,7 @@ from sqlalchemy import select, func
 from db.models import VKModel
 from db.session import open_session
 from utils.config import DEVELOPERS
-
+from utils.other import sorted_dict
 
 services_names = {
     "/my_home":           "Мой дом",
@@ -47,22 +47,13 @@ async def get_views_by_services(session, date: str) -> dict[str: int] | None:
     result = await session.execute(query)
     result = result.mappings()
 
-    res = {}
+    result_dict = {}
 
     for service in result:
         if (name := service["event_name"]) in services_names:
-            res[services_names[name]] = service["count"]
+            result_dict[services_names[name]] = service["count"]
 
-    res = res.items()
-    res = sorted(res, key=lambda x: x[1], reverse=True)
-
-    result = {}
-    result.update(res)
-
-    if not result:
+    if not result_dict:
         return None
 
-    return result
-
-
-
+    return result_dict
