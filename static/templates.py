@@ -1,27 +1,25 @@
-stats_day_form = """\
-<strong><a href="https://analytics.spb.yazzh.ru/d/F6JYhx64z/vk-dashboard?orgId=1&refresh=1m">📈
-Ежедневная статистика по аудитории ЯЗЖ за {td}:</a></strong>
+stats_day_form = """
+<strong>Ежедневная статистика по аудитории ЯЗЖ за {{ date }}:</strong>  
+<strong>Всего пользователей(с декабря 2022): {{ total_users }} ({{ "{:+}".format(total_users_delta) }})</strong>
 
-<strong>Всего пользователей (с декабря 2022): {} {user_d[1]}</strong>
-
-<strong>Пользователей: {uniqe_u[0]} {uniqe_u[1]}</strong>
-<strong>Просмотров: {user_day[0]} {user_day[1]}</strong>
+<strong>Пользователей: {{ unique_users }} ({{ "{:+}".format(unique_users_delta) }})</strong>  
+<strong>Просмотров: {{ views }} ({{ "{:+}".format(views_delta) }})</strong>
 
 <strong>UTM term:</strong>
-{utm}
-
+{% for key, value in utm_stats.result_for_end_day.items() -%}
+{{ loop.index0 + 1 }}. {{ key }}: {{ value }} ({{ "{:+}".format(utm_stats.delta[key]) }})
+{% endfor %}
 <strong>Просмотры по сервисам:</strong>
-{result_change}
+{% for key, value in views_stats.result_for_end_day.items() -%}
+{{ loop.index0 + 1 }}. {{ key }}: {{ value }} ({{ "{:+}".format(views_stats.delta[key]) }})
+{% endfor %}
+<strong>Подписки на уведомления: </strong>  
+Telegram: {{ subscribers_tg }} ({{ "{:+}".format(subscribers_tg_delta) }})  
+VK: {{ subscribers_vk }} ({{ "{:+}".format(subscribers_vk_delta) }})  
+Всего (уникальных): {{ subscribers_total }} ({{ "{:+}".format(subscribers_total_delta) }})
 
-<strong>Подписки на уведомления: </strong>
-Telegram: {subscribers_tg[0]} ({subscribers_tg[1]})
-VK: {subscribers_vk[0]} ({subscribers_vk[1]})
-Всего (уникальных): {subscribers_total[0]} ({subscribers_total[1]})
-
-<strong>Домовые чаты (пилот):</strong>
-Всего чатов: {chats_count}
-Всего участников: {chats_users_sum}
-Всего сообщений: {chats_mes_sum}
-
-<a href="https://disk.yandex.ru/i/IJ5zJCq9SjwchA">❓\
-Если возникли вопросы "как считали?", пожалуйста, ознакомьтесь со справкой</a>"""
+<strong>Домовые чаты (пилот):</strong>  
+Всего чатов: {{ chats }} ({{ "{:+}".format(chats_delta) }})  
+Всего участников: {{ chats_users }} ({{ "{:+}".format(chats_users_delta) }})  
+Всего сообщений: {{ chats_messages }} ({{ "{:+}".format(chats_messages_delta) }})
+"""
