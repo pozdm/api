@@ -29,6 +29,7 @@ services_names = {
     "/reference":         "Cправочная",
     "/section":           "Я родитель / Развитие",
     "/city_development":  "Развитие территорий",
+    "schools":            "Школы",
 }
 
 

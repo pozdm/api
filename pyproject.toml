@@ -12,6 +12,7 @@ fastapi = "^0.111.0"
 clickhouse-sqlalchemy = "0.2.4"
 asyncio = "^3.4.3"
 uvicorn = {extras = ["standart"], version = "^0.30.1"}
+gunicorn = "^22.0.0"
 
 
 [tool.poetry.group.dev.dependencies]

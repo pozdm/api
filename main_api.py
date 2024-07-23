@@ -7,5 +7,5 @@ app = FastAPI()
 app.include_router(statistics_router)
 
 
-if __name__ == "__main__":
-    uvicorn.run("main_api:app", reload=True)
+# if __name__ == "__main__":
+#     uvicorn.run("main_api:app", reload=True)
