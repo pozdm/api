@@ -6,7 +6,6 @@ from sqlalchemy.orm import sessionmaker
 from utils import config
 
 
-# RDS_CERT_PATH = r"C:\Users\user\.yandex\RootCA.crt"
 RDS_CERT_PATH = r"/usr/local/share/ca-certificates/Yandex/RootCA.crt"
 ssl_context = ssl.create_default_context(cafile=RDS_CERT_PATH)
 ssl_context.verify_mode = ssl.CERT_REQUIRED

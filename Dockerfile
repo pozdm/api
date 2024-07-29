@@ -18,6 +18,9 @@ RUN poetry install --no-dev
 
 COPY . .
 
+VOLUME /app/logfile.log
+
 EXPOSE 8000
 
-CMD gunicorn main_api:app --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+#CMD gunicorn main_api:app --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+CMD ["uvicorn", "main_api:app", "--reload", "--log-config=log_conf.yaml", "--host", "0.0.0.0", "--port", "8000"]
